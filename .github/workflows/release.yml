@@ -90,7 +90,9 @@ jobs:
           context: .
           platforms: linux/arm64,linux/amd64
           push: true
-          tags: aws-azure-login:latest
+          tags: |
+            ghcr.io/atbankio/aws-azure-login:latest
+            ghcr.io/atbankio/aws-azure-login:${{ github.sha }}
 
   # publish-snap:
   #   needs: build
