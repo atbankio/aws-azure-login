@@ -51,9 +51,20 @@ jobs:
         with:
           name: lib
           path: lib
+
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: linux/arm64
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+
       - name: Inspect builder
         run: |
           echo "Name:      ${{ steps.buildx.outputs.name }}"
@@ -63,13 +74,25 @@ jobs:
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
       # - name: Build the Docker image
       #   run: docker buildx build . --file Dockerfile --platform=linux/amd64,linux/arm64 --tag aws-azure-login:$(date +%s) --tag aws-azure-login:latest
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build and push to registry
         uses: docker/build-push-action@v2
+        # env:
+        # DOCKER_PLATFORMS: linux/amd64,linux/arm64
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64,linux/amd64
           push: true
-          tags: aws-azure-login:latest
+          tags: |
+            ghcr.io/atbankio/aws-azure-login:latest
+            ghcr.io/atbankio/aws-azure-login:${{ github.sha }}
 
   # publish-snap:
   #   needs: build

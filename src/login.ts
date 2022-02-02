@@ -620,7 +620,7 @@ export const login = {
 
     try {
       const args = headless
-        ? []
+        ? ["--disable-dev-shm-usage"]
         : [`--app=${url}`, `--window-size=${WIDTH},${HEIGHT}`];
       if (disableSandbox) args.push("--no-sandbox");
       if (enableChromeNetworkService)
