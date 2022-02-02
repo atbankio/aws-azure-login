@@ -7,7 +7,6 @@ RUN apt-get update \
     && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-
 COPY package.json yarn.lock /aws-azure-login/
 
 RUN cd /aws-azure-login \
