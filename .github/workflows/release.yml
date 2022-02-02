@@ -69,7 +69,7 @@ jobs:
           DOCKER_PLATFORMS: linux/amd64,linux/armhf,linux/arm64
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64,linux/amd64
           push: true
           tags: aws-azure-login:latest
 
