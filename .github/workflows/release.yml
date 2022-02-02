@@ -68,7 +68,7 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: aws-azure-login:latest,aws-azure-login:${GITHUB_SHA::8}
+          tags: aws-azure-login:latest,aws-azure-login:${{ env.GITHUB_SHA }}
 
   # publish-snap:
   #   needs: build
