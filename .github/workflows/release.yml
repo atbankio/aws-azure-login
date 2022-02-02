@@ -66,6 +66,7 @@ jobs:
       - name: Build and push to registry
         uses: docker/build-push-action@v2
         with:
+          context: .
           platforms: linux/amd64,linux/arm64
           push: true
           tags: aws-azure-login:latest
